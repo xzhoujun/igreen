@@ -20,13 +20,13 @@ public class BaseServices implements IBaseServices  {
 
 
 
-	@Override
+	
 	public JdbcDAO getJdbcDAO(){
 		return userdao.getJdbcDAO();
 	}
 
 
-	@Override
+	
 	public void printCache() {
 		// TODO Auto-generated method stub
 		
@@ -34,7 +34,7 @@ public class BaseServices implements IBaseServices  {
 
 
 
-	@Override
+	
 	public List queryListNum(String hql, Integer max, Object... param) {
 		// TODO Auto-generated method stub
 		List list  = new ArrayList();
