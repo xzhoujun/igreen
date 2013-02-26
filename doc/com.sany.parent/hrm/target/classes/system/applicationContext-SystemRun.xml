@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:tool="http://www.springframework.org/schema/tool"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	http://www.springframework.org/schema/tool http://www.springframework.org/schema/tool/spring-tool-3.0.xsd"
+	default-lazy-init="false">
+	<!-- 目录 -->
+	<bean id="com.sany.hrm.system.dao.DirectoryDao.templateSupport"
+		parent="templateSupportTemplate">
+		<property name="filenameFormate" value="/sql/system/DirectoryDao/${fileBaseName}.ftl" />
+	</bean>
+
+	<!-- 目录 -->
+	<bean id="com.sany.hrm.system.dao.DirectoryDao" class="com.sany.hrm.system.dao.JdbcDirectoryDao"
+		parent="daoTemplate">
+		<property name="templateSupport" ref="com.sany.hrm.system.dao.DirectoryDao.templateSupport" />
+	</bean>
+
+	<!-- 目录字段 -->
+	<bean id="com.sany.hrm.system.dao.DirectoryFiDao.templateSupport"
+		parent="templateSupportTemplate">
+		<property name="filenameFormate" value="/sql/system/DirectoryFiDao/${fileBaseName}.ftl" />
+	</bean>
+
+	<!-- 目录字段 -->
+	<bean id="com.sany.hrm.system.dao.DirectoryFiDao" class="com.sany.hrm.system.dao.JdbcDirectoryFiDao"
+		parent="daoTemplate">
+		<property name="templateSupport" ref="com.sany.hrm.system.dao.DirectoryFiDao.templateSupport" />
+	</bean>
+
+	<!-- 目录索引 -->
+	<bean id="com.sany.hrm.system.dao.DirectoryInDao.templateSupport"
+		parent="templateSupportTemplate">
+		<property name="filenameFormate" value="/sql/system/DirectoryInDao/${fileBaseName}.ftl" />
+	</bean>
+
+	<!-- 目录索引 -->
+	<bean id="com.sany.hrm.system.dao.DirectoryInDao" class="com.sany.hrm.system.dao.JdbcDirectoryInDao"
+		parent="daoTemplate">
+		<property name="templateSupport" ref="com.sany.hrm.system.dao.DirectoryInDao.templateSupport" />
+	</bean>
+
+	<!-- 分区 -->
+	<bean id="com.sany.hrm.system.dao.PartitionDao.templateSupport"
+		parent="templateSupportTemplate">
+		<property name="filenameFormate" value="/sql/system/PartitionDao/${fileBaseName}.ftl" />
+	</bean>
+
+	<!-- 分区 -->
+	<bean id="com.sany.hrm.system.dao.PartitionDao" class="com.sany.hrm.system.dao.JdbcPartitionDao"
+		parent="daoTemplate">
+		<property name="templateSupport" ref="com.sany.hrm.system.dao.PartitionDao.templateSupport" />
+	</bean>
+
+	<!-- 资源 -->
+	<bean id="com.sany.hrm.system.dao.ResourceDao.templateSupport"
+		parent="templateSupportTemplate">
+		<property name="filenameFormate" value="/sql/system/ResourceDao/${fileBaseName}.ftl" />
+	</bean>
+
+	<!-- 资源 -->
+	<bean id="com.sany.hrm.system.dao.ResourceDao" class="com.sany.hrm.system.dao.JdbcResourceDao"
+		parent="daoTemplate">
+		<property name="templateSupport" ref="com.sany.hrm.system.dao.ResourceDao.templateSupport" />
+	</bean>
+
+	<!-- 资源字段 -->
+	<bean id="com.sany.hrm.system.dao.ResourceFiDao.templateSupport"
+		parent="templateSupportTemplate">
+		<property name="filenameFormate" value="/sql/system/ResourceFiDao/${fileBaseName}.ftl" />
+	</bean>
+
+	<!-- 资源字段 -->
+	<bean id="com.sany.hrm.system.dao.ResourceFiDao" class="com.sany.hrm.system.dao.JdbcResourceFiDao"
+		parent="daoTemplate">
+		<property name="templateSupport" ref="com.sany.hrm.system.dao.ResourceFiDao.templateSupport" />
+	</bean>
+
+	<!-- 资源索引 -->
+	<bean id="com.sany.hrm.system.dao.ResourceInDao.templateSupport"
+		parent="templateSupportTemplate">
+		<property name="filenameFormate" value="/sql/system/ResourceInDao/${fileBaseName}.ftl" />
+	</bean>
+
+	<!-- 资源索引 -->
+	<bean id="com.sany.hrm.system.dao.ResourceInDao" class="com.sany.hrm.system.dao.JdbcResourceInDao"
+		parent="daoTemplate">
+		<property name="templateSupport" ref="com.sany.hrm.system.dao.ResourceInDao.templateSupport" />
+	</bean>
+
+	<!-- 系统运行 -->
+	<bean id="com.sany.hrm.system.dao.SystemRunDao.templateSupport"
+		parent="templateSupportTemplate">
+		<property name="filenameFormate" value="/sql/system/SystemRunDao/${fileBaseName}.ftl" />
+	</bean>
+
+	<!-- 系统运行 -->
+	<bean id="com.sany.hrm.system.dao.SystemRunDao" class="com.sany.hrm.system.dao.JdbcSystemRunDao"
+		parent="daoTemplate">
+		<property name="templateSupport" ref="com.sany.hrm.system.dao.SystemRunDao.templateSupport" />
+	</bean>
+
+	<!-- 系统运行 -->
+	<bean id="com.sany.hrm.system.service.SystemRunService"
+		class="com.sany.hrm.system.service.DefaultSystemRunService">
+		<!-- 目录 -->
+		<property name="directoryDao" ref="com.sany.hrm.system.dao.DirectoryDao" />
+			
+		<!-- 目录字段 -->
+		<property name="directoryFiDao" ref="com.sany.hrm.system.dao.DirectoryFiDao" />
+			
+		<!-- 目录索引 -->
+		<property name="directoryInDao" ref="com.sany.hrm.system.dao.DirectoryInDao" />
+			
+		<!-- 分区 -->
+		<property name="partitionDao" ref="com.sany.hrm.system.dao.PartitionDao" />
+			
+		<!-- 资源 -->
+		<property name="resourceDao" ref="com.sany.hrm.system.dao.ResourceDao" />
+			
+		<!-- 资源字段 -->
+		<property name="resourceFiDao" ref="com.sany.hrm.system.dao.ResourceFiDao" />
+			
+		<!-- 资源索引 -->
+		<property name="resourceInDao" ref="com.sany.hrm.system.dao.ResourceInDao" />
+			
+		<!-- 系统运行 -->
+		<property name="dao" ref="com.sany.hrm.system.dao.SystemRunDao" />
+	</bean>
+</beans>

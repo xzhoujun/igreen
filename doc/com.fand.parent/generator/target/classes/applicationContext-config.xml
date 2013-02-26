@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:tool="http://www.springframework.org/schema/tool"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	http://www.springframework.org/schema/tool http://www.springframework.org/schema/tool/spring-tool-3.0.xsd"
+	default-lazy-init="false">
+	<bean id="oracle.fieldTypeMap" class="java.util.HashMap">
+		<constructor-arg>
+			<map>
+				<entry key="-7" value="BIT" />
+				<entry key="-6" value="TINYINT" />
+				<entry key="5" value="SMALLINT" />
+				<entry key="4" value="Integer" />
+				<entry key="-5" value="BIGINT" />
+				<entry key="6" value="FLOAT" />
+				<entry key="7" value="REAL" />
+				<entry key="8" value="DOUBLE" />
+				<entry key="2" value="NUMERIC" />
+				<entry key="3" value="DECIMAL" />
+				<entry key="1" value="CHAR" />
+				<entry key="12" value="VARCHAR" />
+				<entry key="-1" value="LONGVARCHAR" />
+				<entry key="91" value="DATE" />
+				<entry key="92" value="TIME" />
+				<entry key="93" value="TIMESTAMP" />
+				<entry key="-2" value="BINARY" />
+				<entry key="-3" value="VARBINARY" />
+				<entry key="-4" value="LONGVARBINARY" />
+				<entry key="0" value="NULL" />
+				<entry key="1111" value="OTHER" />
+				<entry key="2000" value="JAVA_OBJECT" />
+				<entry key="2001" value="DISTINCT" />
+				<entry key="2002" value="STRUCT" />
+				<entry key="2003" value="ARRAY" />
+				<entry key="2004" value="BLOB" />
+				<entry key="2005" value="CLOB" />
+				<entry key="2006" value="REF" />
+				<entry key="70" value="DATALINK" />
+				<entry key="16" value="BOOLEAN" />
+				<entry key="-8" value="ROWID" />
+				<entry key="-15" value="NCHAR" />
+				<entry key="-9" value="NVARCHAR" />
+				<entry key="-16" value="LONGNVARCHAR" />
+				<entry key="2011" value="NCLOB" />
+				<entry key="2009" value="SQLXML" />
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<bean id="oracle.fieldTojavaTypeMap" class="java.util.HashMap">
+		<constructor-arg>
+			<map>
+				<entry key="-7" value="Integer" />
+				<entry key="-6" value="Integer" />
+				<entry key="5" value="Integer" />
+				<entry key="4" value="Integer" />
+				<entry key="-5" value="Integer" />
+				<entry key="6" value="Long" />
+				<entry key="7" value="String" />
+				<entry key="8" value="Double" />
+				<entry key="2" value="Double" />
+				<entry key="3" value="Double" />
+				<entry key="1" value="String" />
+				<entry key="12" value="String" />
+				<entry key="-1" value="String" />
+				<entry key="91" value="Date" />
+				<entry key="92" value="Date" />
+				<entry key="93" value="Date" />
+				<entry key="-2" value="Byte[]" />
+				<entry key="-3" value="String[]" />
+				<entry key="-4" value="Long[]" />
+				<entry key="0" value="String" />
+				<entry key="1111" value="Object" />
+				<entry key="2000" value="Object" />
+				<entry key="2001" value="String" />
+				<entry key="2002" value="String" />
+				<entry key="2003" value="Byte[]" />
+				<entry key="2004" value="Byte[]" />
+				<entry key="2005" value="String" />
+				<entry key="2006" value="Object" />
+				<entry key="70" value="Object" />
+				<entry key="16" value="Object" />
+				<entry key="-8" value="Object" />
+				<entry key="-15" value="String" />
+				<entry key="-9" value="String" />
+				<entry key="-16" value="String" />
+				<entry key="2011" value="String" />
+				<entry key="2009" value="String" />
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<bean id="com.sany.hrm.ProjectMapper.moduleMapperMap" class="java.util.HashMap">
+		<constructor-arg>
+			<map>
+				<entry key="system">
+					<bean class="com.fand.generator.mapper.ModuleMapper">
+						<property name="name" value="系统管理" />
+						<property name="businessMap">
+							<map>
+								<entry key="SystemRun">
+									<bean class="com.fand.generator.mapper.BusinessMapper">
+										<property name="name" value="系统运行" />
+										<property name="entityList">
+											<list>
+												<value>Directory</value>
+												<value>DirectoryFi</value>
+												<value>DirectoryIn</value>
+												<value>Partition</value>
+												<value>Resource</value>
+												<value>ResourceFi</value>
+												<value>ResourceIn</value>
+											</list>
+										</property>
+									</bean>
+								</entry>
+							</map>
+						</property>
+					</bean>
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<bean id="com.sany.hrm.ProjectMapper" class="com.fand.generator.mapper.ProjectMapper">
+		<property name="code" value="HRM" />
+		<property name="name" value="人力资源管理系统" />
+		<property name="packageCode" value="com.sany.hrm" />
+		<property name="moduleMapperMap" ref="com.sany.hrm.ProjectMapper.moduleMapperMap"></property>
+	</bean>
+
+	<bean id="com.sany.hrm.FreeMarkerConfiguration"
+		class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
+		<property name="preferFileSystemAccess" value="false" />
+		<property name="templateLoaderPath" value="classpath:/template" />
+	</bean>
+
+	<bean id="com.sany.hrm.Template" class="com.fand.generator.template.DefaultTemplate"
+		init-method="init">
+		<property name="configuration" ref="com.sany.hrm.FreeMarkerConfiguration" />
+		<property name="outputDir" value="D:\workspace\com.sany.parent\hrm" />
+		<property name="projectMapper" ref="com.sany.hrm.ProjectMapper" />
+	</bean>
+
+	<bean id="com.sany.hrm.poMap" class="java.util.HashMap">
+		<constructor-arg>
+			<map>
+				<entry key="Directory" value="FD_DIRECTORY" />
+				<entry key="DirectoryFi" value="FD_DIRECTORY_FI" />
+				<entry key="DirectoryIn" value="FD_DIRECTORY_IN" />
+				<entry key="Partition" value="FD_PARTITION" />
+				<entry key="Resource" value="FD_RESOURCE" />
+				<entry key="ResourceFi" value="FD_RESOURCE_FI" />
+				<entry key="ResourceIn" value="FD_RESOURCE_IN" />
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<!-- 配置dataSource数据源 -->
+	<bean id="com.sany.hrm.dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<!-- 引入jdbc属性文件，之后通过占位符(类似于EL表达式)读取信息 -->
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@192.168.168.101:1521:ORCL" />
+		<property name="username" value="HRM" />
+		<property name="password" value="HRM" />
+		<!-- 连接池启动时的初始值 -->
+		<property name="initialSize" value="2" />
+		<!-- 连接池的最大值 -->
+		<property name="maxActive" value="10" />
+		<!-- 最大空闲值.当经过一个高峰时间后，连接池可以慢慢将已经用不到的连接慢慢释放一部分，一直减少到maxIdle为止 -->
+		<property name="maxIdle" value="2" />
+		<!-- 最小空闲值.当空闲的连接数少于阀值时，连接池就会预申请去一些连接，以免洪峰来时来不及申请 -->
+		<property name="minIdle" value="2" />
+	</bean>
+
+	<bean name="com.sany.hrm.JdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource">
+			<ref bean="com.sany.hrm.dataSource" />
+		</property>
+	</bean>
+
+	<bean id="com.sany.hrm.PoMapperFactory" class="com.fand.generator.PoMapperFactory"
+		init-method="init">
+		<property name="typeMap" ref="oracle.fieldTojavaTypeMap" />
+		<property name="defaultFieldType" value="Object" />
+		<property name="poMap" ref="com.sany.hrm.poMap" />
+		<property name="jdbcTemplate" ref="com.sany.hrm.JdbcTemplate" />
+		<property name="template" ref="com.sany.hrm.Template" />
+	</bean>
+</beans>

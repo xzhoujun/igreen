@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: generator
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.fand
+Build-Jdk: 1.6.0_37
+Built-By: yaoht0-fand
+Created-By: Maven Integration for Eclipse
+Specification-Title: generator
+Specification-Version: 0.0.1-SNAPSHOT
+

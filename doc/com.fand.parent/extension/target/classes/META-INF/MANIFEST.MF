@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: extension
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.fand
+Build-Jdk: 1.7.0_09
+Built-By: fand.yaoht
+Created-By: Maven Integration for Eclipse
+Specification-Title: extension
+Specification-Version: 0.0.1-SNAPSHOT
+
