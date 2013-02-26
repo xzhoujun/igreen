@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.chinasofti.basic.framework.model.hibernate.Users" table="tb_user">
+		<cache usage="read-write"/>
+		<id name="user_id" column="user_id" type="java.lang.String" length="32">
+			<generator class="uuid.hex">
+				<!--
+					To add non XDoclet generator parameters, create a file named
+					hibernate-generator-params-Users.xml containing the additional
+					parameters and place it in your merge dir.
+				-->
+			</generator>
+		</id>
+
+		<property name="user_name" type="java.lang.String" update="true"
+			insert="true" column="user_name" length="50" not-null="true" />
+
+		<property name="user_pwd" type="java.lang.String" update="true"
+			insert="true" column="user_pwd" length="50" not-null="true" />
+
+		<property name="user_email" type="java.lang.String" update="true"
+			insert="true" column="user_email" length="50" />
+
+		<property name="user_desc" type="java.lang.String" update="true"
+			insert="true" column="user_desc" length="500" />
+
+		
+		<property name="user_dept" type="java.lang.String" update="true"
+			insert="true" column="user_dept" length="50" />
+
+		<property name="user_type" type="java.lang.String" update="true"
+			insert="true" column="user_type" length="20" />
+
+		
+		<!--
+			To add non XDoclet property mappings, create a file named
+			hibernate-properties-Users.xml containing the additional properties
+			and place it in your merge dir.
+		-->
+
+	</class>
+
+</hibernate-mapping>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+
+
+
+	<!--	定义事物管理器   -->
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<!--      事物定义1start(已停用)      -->
+	<!--
+		定义事物拦截器 <bean id="transactionInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+
+		<property name="transactionManager"> <ref bean="transactionManager" />
+		</property> <property name="transactionAttributes"> <props> <prop
+		key="delete*">PROPAGATION_REQUIRED</prop> <prop
+		key="add*">PROPAGATION_REQUIRED</prop> <prop
+		key="update*">PROPAGATION_REQUIRED</prop> <prop
+		key="save*">PROPAGATION_REQUIRED</prop> <prop
+		key="find*">PROPAGATION_REQUIRED,readOnly</prop> <prop
+		key="*">PROPAGATION_REQUIRED</prop> </props> </property> </bean>
+	-->
+	<!--
+		定义一个自动代理类 <bean id="autoProxy_ts"
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+
+		<property name="beanNames"> <list> <value>*Services</value> </list>
+		</property> <property name="interceptorNames"> <list>
+		<value>transactionInterceptor</value> </list> </property> </bean>
+	-->
+	<!-- 事务定义1end -->
+
+
+	<!-- 事务定义2start -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+
+			<tx:method name="find*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="query*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="get*" propagation="REQUIRED" read-only="true" />
+
+			<tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="interceptorPointCuts"
+			expression="execution(* com.chinasofti.basic.framework.manage.services.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="interceptorPointCuts" />
+	</aop:config>
+	<!-- 事务定义2end -->
+
+
+	<!--  定义日志拦截器类 	-->
+	<!--
+		<bean id="logger" class="com.chinasofti.basic.framework.common.LoggingInterceptor" /> <bean
+		id="autoProxy"
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+
+		<property name="beanNames"> <value>*Services</value> </property>
+
+		<property name="interceptorNames"> <list> <value>logger</value>
+		</list> </property> </bean>
+	-->
+
+
+
+	<!--
+		OpenSessionInViewFilter在getSession的时候,会把获取回来的session的flush mode
+		设为FlushMode.NEVER。
+		然后把该sessionFactory绑定到TransactionSynchronizationManager，使request的整个过程都使用同一个session，
+		在请求过后再接除该sessionFactory的绑定，最后closeSessionIfNecessary根据该session是否已和transaction绑定来决定是否关闭session。
+		在这个过程中，若HibernateTemplate
+		发现自当前session有不是readOnly的transaction，就会获取到FlushMode.AUTO
+		Session，使方法拥有写权限。
+		也即是，如果有不是readOnly的transaction就可以由Flush.NEVER转为Flush.AUTO,拥有insert,update,delete操作权限，如果没有transaction，
+		并且没有另外人为地设flush
+		model的话，则doFilter的整个过程都是Flush.NEVER。所以受transaction保护的方法有写权限，没受保护的则没有
+	-->
+	
+	
+</beans>

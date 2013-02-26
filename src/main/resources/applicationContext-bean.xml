@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<!-- 定义了与实体相关的dao -->
+	<bean id="genericEntityDAO" class="com.chinasofti.basic.framework.dao.hibernate.GenericEntityDAO"
+		scope="prototype" lazy-init="true">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<!-- 定义了与实体无关的dao -->
+	<bean id="genericDAO" class="com.chinasofti.basic.framework.dao.hibernate.GenericDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="jdbcbasedao" class="com.chinasofti.basic.framework.dao.jdbc.JdbcDAO">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>
+
+	<!--使用泛型DAO作为抽象基类-->
+	<bean id="basedao" class="com.chinasofti.basic.framework.dao.BaseDAO"
+		abstract="true" depends-on="genericEntityDAO,genericDAO">
+		<property name="gedao">
+			<ref bean="genericEntityDAO" />
+		</property>
+		<property name="gdao">
+			<ref bean="genericDAO" />
+		</property>
+		<property name="jdbcdao">
+			<ref bean="jdbcbasedao" />
+		</property>
+	</bean>
+
+<!-- 
+	<bean id="basedao" class="com.chinasofti.basic.framework.dao.BaseDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+ -->
+	
+    <bean id="userdao" parent="basedao">
+	        <constructor-arg>
+	            <value>com.chinasofti.basic.framework.model.hibernate.Users</value>
+	        </constructor-arg>
+	</bean>
+	
+	
+	
+
+	<bean id="baseServices" class="com.chinasofti.basic.framework.manage.services.impl.BaseServices">
+			<property name="userdao">
+			<ref bean="userdao" />
+		</property>		
+	</bean>
+
+	
+   
+    <bean id="userDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.chinasofti.basic.framework.dao.UserDAO"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    <bean id="depDao" class="com.chinasofti.basic.framework.dao.DepDAOImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+
+    <bean id="userService" class="com.chinasofti.basic.framework.manage.services.impl.UserServiceImpl">
+        <property name="userDao" ref="userDao"></property>
+        <property name="depDao" ref="depDao"></property>
+    </bean>
+	
+	
+
+</beans>

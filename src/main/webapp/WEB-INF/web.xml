@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:applicationContext-*.xml</param-value>
+  </context-param>
+  
+  <!-- Spring的log4j监听器 -->
+  <listener>
+        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+  </listener>
+  
+  <listener>
+    <listener-class>com.chinasofti.basic.framework.listener.BasicContextLoaderListener</listener-class>
+  </listener>
+  
+  <listener> 
+    <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+  </listener>
+  
+  <!-- 字符集 过滤器  -->
+    <filter>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+  <!-- <filter>
+    <filter-name>rewriteFilter</filter-name>
+    <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>rewriteFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+  </filter-mapping> -->
+  
+  <filter>
+    <filter-name>OpenSessionInViewFilter</filter-name>
+    <filter-class>
+			org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>OpenSessionInViewFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+ 
+  <filter>
+    <filter-name>SessionFilter</filter-name>
+    <filter-class>com.chinasofti.basic.framework.common.web.SessionFilter</filter-class>
+    <init-param>
+      <param-name>disableFilter</param-name>
+      <param-value>N</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>SessionFilter</filter-name>
+    <url-pattern>/business/office/*</url-pattern>
+    <url-pattern>/business/personal_set/*</url-pattern>
+    <url-pattern>/business/business_message/*</url-pattern>
+    <url-pattern>/business/calendar/*</url-pattern>
+    <url-pattern>/business/mail/*</url-pattern>
+    <url-pattern>/back_manage/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+  </filter-mapping>
+  
+  <!-- Spring view分发器 -->
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>GetImage</display-name>
+    <servlet-name>GetImage</servlet-name>
+    <servlet-class>com.chinasofti.basic.framework.common.web.GetImage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetImage</servlet-name>
+    <url-pattern>/GetImage.img</url-pattern>
+  </servlet-mapping>
+  <session-config>
+    <session-timeout>20</session-timeout>
+  </session-config>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.wml</welcome-file>
+  </welcome-file-list>
+  <error-page>
+    <error-code>401</error-code>
+    <location>/common/401.htm</location>
+  </error-page>
+  <error-page>
+    <error-code>403</error-code>
+    <location>/common/403.htm</location>
+  </error-page>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/common/404.htm</location>
+  </error-page>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/common/500.htm</location>
+  </error-page>
+  <error-page>
+    <exception-type>java.lang.NullPointerException</exception-type>
+    <location>/common/npe.htm</location>
+  </error-page>
+</web-app>
