@@ -12,15 +12,12 @@
 <a href="javascript:location='add.jsp'">添加</a>
 <table>
   <tr><th>ID</th><th>名称</th><th>操作</th></tr>
-  
-  <s:iterator value="page.result" var="_dep" >
+ 
 	  <tr><td>${_dep.depId}</td><td>${_dep.depName}</td><td><a href="#" onclick="delDep('${_dep.depId}')">删 除</a></td></tr>
-  </s:iterator>
+ 
 
 </table>
-<form name="pageform">
-<p:pagination totalCount="${page.totalCount }" pageNum="${page.pageNum }" path="index.action" totalPageCount="${page.totalPageCount  }"/>
-</form>
+
 </body>
 <script type="text/javascript">
 function delDep(depid){

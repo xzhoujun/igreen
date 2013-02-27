@@ -36,7 +36,7 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     
-  <!-- <filter>
+  <filter>
     <filter-name>rewriteFilter</filter-name>
     <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
   </filter>
@@ -45,7 +45,7 @@
     <url-pattern>/*</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
-  </filter-mapping> -->
+  </filter-mapping>
   
   <filter>
     <filter-name>OpenSessionInViewFilter</filter-name>
@@ -111,7 +111,7 @@
     <welcome-file>index.jsp</welcome-file>
     <welcome-file>index.wml</welcome-file>
   </welcome-file-list>
-  <error-page>
+  <!-- <error-page>
     <error-code>401</error-code>
     <location>/common/401.htm</location>
   </error-page>
@@ -130,5 +130,5 @@
   <error-page>
     <exception-type>java.lang.NullPointerException</exception-type>
     <location>/common/npe.htm</location>
-  </error-page>
+  </error-page> -->
 </web-app>

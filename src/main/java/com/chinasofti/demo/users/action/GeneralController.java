@@ -9,8 +9,7 @@ public class GeneralController {
     @RequestMapping(value="index.do")
     public void index(Model model){
     	System.out.println(".....");
-        model.addAttribute("xujj","Hello World");
-        System.out.println("");
+        model.addAttribute("xujj","yyyy");        
     }
 
 }
