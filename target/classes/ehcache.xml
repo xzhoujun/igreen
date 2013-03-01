@@ -1,0 +1,30 @@
+<ehcache>
+	<diskStore path="java.io.tmpdir" />
+
+	<defaultCache maxElementsInMemory="2000" eternal="false"
+		timeToLiveSeconds="120" timeToIdleSeconds="120" overflowToDisk="true"
+		diskPersistent="false" diskExpiryThreadIntervalSeconds="120"
+		memoryStoreEvictionPolicy="LRU" />
+
+	<cache name="org.hibernate.cache.StandardQueryCache"
+		maxElementsInMemory="500" eternal="false" timeToIdleSeconds="3600"
+		timeToLiveSeconds="7200" overflowToDisk="false" />
+
+	<cache name="org.hibernate.cache.UpdateTimestampsCache"
+		maxElementsInMemory="5000" eternal="true" overflowToDisk="true" />
+
+	<!--
+	<cache name="com.chinasofti.basic.framework.model.hibernate.Users" maxElementsInMemory="1000"
+		eternal="false" timeToIdleSeconds="100" timeToLiveSeconds="100"
+		overflowToDisk="false" />
+	-->
+	<!-- maxElementsInMemoryCache 中最大允许保存的数据数量 -->
+	<!-- eternal Cache中数据是否为常量,表示缓存是不是永远不超时 -->
+	<!-- timeToLiveSeconds 缓存数据的生存时间 -->
+	<!-- timeToIdleSeconds 缓存数据钝化时间(但缓存里的数据超过指定时间后,存入磁盘) -->
+	<!-- overflowToDisk 内存不足时，是否启用磁盘缓存 -->
+	<!-- diskExpiryThreadIntervalSeconds: 磁盘失效线程运行时间间隔, 默认是 120 秒. diskSpoolBufferSizeMB: 
+		这个参数设置 DiskStore(磁盘缓存) 的缓存区大小. 默认 30MB. memoryStoreEvictionPolicy: 当达到 maxElementsInMemory 
+		限制时, Ehcache 将会根据指定的策略去清理内存. 默认策略是 LRU(最近最少使用). 可以设置为 FIFO(先进先出) 或 LFU(较少使用). -->
+
+</ehcache> 
